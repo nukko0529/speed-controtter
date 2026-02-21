@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Speed ContrOtter",
+    "version": "1.0",
+    "description": "CS50's final project",
+    "icons": {
+        "16": "icons/SC_icon_16.png",
+        "32": "icons/SC_icon_32.png",
+        "48": "icons/SC_icon_48.png",
+        "128": "icons/SC_icon_128.png"
+    },
+    "action": {
+        "default_popup": "src/popup.html"
+    },
+    "permissions": ["activeTab", "scripting", "storage"],
+    "content_scripts": [{
+        "matches": ["https://*/*"],
+        "js": [
+            "src/content.js"
+        ]
+    }]
+}
