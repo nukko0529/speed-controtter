@@ -60,6 +60,9 @@ YouTubeやPrime Videoなどの動画再生速度をコントロールするChrom
 manifest.json
 ```
 
+## バージョン
+Current: v1.1.0
+
 ## ライセンス
 このプロジェクトは MIT License のもとで公開されています．
 詳細は[LICENSE](LICENSE)を見てください．

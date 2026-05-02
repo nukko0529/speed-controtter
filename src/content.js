@@ -112,22 +112,38 @@ document.addEventListener('keydown', (event) => {
 function findRealVideo() {
     const videos = Array.from(document.querySelectorAll("video"));
 
+    // 動画が再生中であればそのまま実行
     let real = videos.find(v =>
+        !v.paused &&
+        v.currentTime > 1 &&
+        v.readyState >= 2
+    );
+    if (real) return real;
+
+    // 再生中(フォールバック)
+    real = videos.find(v =>
+        !v.paused &&
+        v.readyState >= 2
+    );
+    if (real) return real;
+
+    // currentTimeが一番大きい(Prime対策)
+    real = videos.sort((a, b) => b.currentTime - a.currenTime)[0];
+    if (real) return real;
+
+    // 従来ロジック(画面サイズ)(保険)
+    real = video.find(v =>
         v.readyState === 4 &&
         v.videoWidth > 0 &&
         v.videoHeight > 0
     );
-
     if (real) return real;
 
-    real = videos.find(v => v.readyState >= 2);
+    real = videos.find(v => v.src && v.src.startsWith("blob"));
     if (real) return real;
 
-    real = videos.find(v => v.src.startsWith("blob:"));
-    if (real) return real;
-
-    //return videos[0];
-    return real;
+    // 最終フォールバックs
+    return videos[0] || null;
 }
 
 // * popup.jsに再生速度の情報を送る
